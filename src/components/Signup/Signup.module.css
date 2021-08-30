@@ -1,3 +1,4 @@
+/* === Variables Define ===*/
 :root{
     --primary-color:#3525D3;
     --white-color:#fff;
@@ -5,6 +6,7 @@
     --light-gray:#E4E8EE;
 }
 
+/* === Body CSS ===*/
 body{  
     position: relative;
     display: flex;
@@ -13,7 +15,7 @@ body{
     min-height: 100vh;
 }
 
-
+/* === Main Content CSS ===*/
 .wrapper{
     padding:50px 25px 0;
     max-width:668px;
@@ -27,7 +29,7 @@ body{
     left:0;
     right:0;
     bottom:0;
-    /* background-image: url('../../svgs/bg-1.svg'); */
+    /* background-image: url("images/bg-1.svg"); */
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -48,10 +50,10 @@ body{
     width:100%;
     margin:auto;
 }
-.wrapper .form-group{
+.wrapper .formGroup{
     margin-bottom: 15px;
 }
-.wrapper .form-group input{
+.wrapper .formGroup input{
     display:block;
     font-size: 16px;
     line-height: 24px;
@@ -64,10 +66,10 @@ body{
     box-shadow: none;
     width:100%;
 }
-.wrapper .form-group input:focus{
+.wrapper .formGroup input:focus{
     outline:none;
 }
-.wrapper .form-group input::placeholder{
+.wrapper .formGroup input::placeholder{
     color:var(--black-color);
     font-weight: 400;
     font-size: 14px;
@@ -91,13 +93,13 @@ body{
 .wrapper .btn:focus{
     outline:none;
 }
-.wrapper .account-exist{
+.wrapper .accountExist{
     color:var(--black-color);
     border-top:1px solid var(--light-gray);
     padding-top:20px;
     text-align: center;
 }
-.wrapper .account-exist a{
+.wrapper .accountExist a{
     color:var(--primary-color);
 }
 .wrapper .forget-password{
@@ -106,15 +108,8 @@ body{
     justify-content:space-between;
     padding:15px 0;
 }
-.wrapper .forget-password a{
+.wrapper .forgetPassword a{
     color:var(--primary-color);
-}
-.wrapper .forget-password .check-box{
-    font-size: 15px;
-    color:var(--black-color);
-}
-.signin {
-    display:block;
 }
 
 @media (max-width:1030px){
@@ -133,3 +128,5 @@ body{
         line-height:25px;
     }
 }
+        
+      

@@ -1,23 +1,22 @@
 import { useState } from "react";
-import styles from "./Login.module.css";
-import {signInWithEmailAndPassword} from "../../services/firebase.js";
+import styles from "./Signup.module.css";
+import {registerWithEmailAndPassword} from "../../services/firebase.js";
 import { useHistory } from "react-router";
 
-function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+function Signup() {
+  const [isSignup, setIsSignup] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const history = useHistory();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if(!email || !password) {
-      return alert("Please enter email and password.");
-    }
-    signInWithEmailAndPassword(email, password);
+    registerWithEmailAndPassword(name, email, password);
   };
 
   const handleLoginChange = (e) => {
-    history.push("/signup");
+    history.push("/login");
   };
 
   return (
@@ -26,27 +25,28 @@ function Login() {
         <div className={styles.headline}>
           <h1>Welcome to Diaro, your Personal Diary.</h1>
         </div>
-          <div className={styles.signin}>
+          <div className={styles.signup}>
             <div className={styles.formGroup}>
-              <input type="email" placeholder="Email" required onChange={(e) => setEmail(e.target.value)}/>
+              <input type="text" placeholder="Full name" required />
             </div>
             <div className={styles.formGroup}>
-              <input type="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)}/>
+              <input type="email" placeholder="Email" required />
             </div>
-            <div className={styles.forgetPassword}>
-              <a>Forgot password?</a>
+            <div className={styles.formGroup}>
+              <input type="password" placeholder="Password" required />
             </div>
             <button type="submit" className={styles.btn}>
-              LOGIN
+              SIGN UP
             </button>
             <div className={styles.accountExist}>
-              Create New account?{" "}
+              Already have an account?{" "}
               <a
-                id={styles.signup}
+                id={styles.login}
                 onClick={handleLoginChange}
                 style={{ cursor: "pointer" }}
+                href=""
               >
-                Signup
+                Login
               </a>
             </div>
           </div>
@@ -55,4 +55,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
