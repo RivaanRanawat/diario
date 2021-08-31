@@ -1,6 +1,7 @@
 .container {
   z-index: 1;
   perspective: 3000px;
+  width: 100%;
 }
 
 .container .book {
@@ -8,7 +9,7 @@
   display: block;
   width: 400px;
   height: 550px;
-  margin: 5% auto;
+  margin: 20px;
   border-radius: 2px 4px 4px 2px;
   background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
   font-family: acumin-pro, sans-serif;
@@ -136,4 +137,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 880px) {
+  .container .book {
+    margin: 5% auto;
+  }
 }

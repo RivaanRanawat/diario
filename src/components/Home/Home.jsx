@@ -14,10 +14,13 @@ function Home() {
   }, []);
   return (
     <div>
-      <div id={styles.mybutton}>
-        <button class={styles.feedback}>Create New Diary</button>
+    <BookList />
+      <div id={styles.logOut}>
+        <button class={styles.logOutBtn}>Log Out</button>
       </div>
-      <BookList />
+      <div id={styles.mybutton}>
+        <button class={styles.createDiary}>Create New Diary</button>
+      </div>
     </div>
   );
 }
