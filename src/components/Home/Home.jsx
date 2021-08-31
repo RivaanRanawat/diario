@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext";
+import TextEditor from "./TextEditor/TextEditor";
 
 function Home() {
   const { currentUser, logout } = useAuth();
@@ -12,7 +13,7 @@ function Home() {
       console.log(currentUser.uid);
     }
   }, []);
-  return <div>Welcome to Home Screen</div>;
+  return <TextEditor />;
 }
 
 export default Home;

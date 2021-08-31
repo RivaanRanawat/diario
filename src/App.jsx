@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./components/Home/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <PrivateRoute exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/forgot-password" component={ForgotPassword} />
           </Switch>
         </AuthProvider>
       </Router>

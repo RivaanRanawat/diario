@@ -29,6 +29,10 @@ function Login() {
     history.push("/signup");
   };
 
+  const handleForgotPassword = () => {
+    history.push("/forgot-password");
+  }
+
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -53,7 +57,7 @@ function Login() {
             />
           </div>
           <div className={styles.forgetPassword}>
-            <a>Forgot password?</a>
+            <a onClick={handleForgotPassword} style={{cursor: "pointer"}}>Forgot password?</a>
           </div>
           <button type="submit" className={styles.btn}>
             {isLoading ? "Loading..." : "LOGIN"}
