@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import "./TextEditor.css";
@@ -13,10 +13,11 @@ function TextEditor() {
     [{ script: "sub" }, { script: "super" }],
     [{ align: [] }],
     ["image", "blockquote", "code-block"],
-    ["clean"]
+    ["clean"],
   ];
-  
+
   // using callback not use effect because of the error of innerhtml by ref created using useRef
+  // pararaph section of entry
   const ref = useCallback((wrapper) => {
     if (wrapper == null) return;
     wrapper.innerHTML = "";
@@ -24,7 +25,25 @@ function TextEditor() {
     wrapper.append(editor);
     new Quill(editor, { theme: "snow", modules: { toolbar: toolbarOptions } });
   }, []);
-  return <div className="container-a" ref={ref}></div>;
+
+  // title section of entry
+  useEffect(() => {
+    new Quill("#editor", {
+      modules: {
+        toolbar: null
+      },
+      theme: "snow",
+    });
+  }, []);
+
+  return (
+    <div>
+      <div id="editor" style={{margin: "1rem", width: "8.5in",}}>
+        <h1>Entry Title</h1>
+      </div>
+      <div className="container-a" ref={ref}></div>
+    </div>
+  );
 }
 
 export default TextEditor;
