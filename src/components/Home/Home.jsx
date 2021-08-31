@@ -12,14 +12,29 @@ function Home() {
       history.push("/signup");
     }
   }, []);
+
+  async function handleLogOut() {
+    try {
+      await logout();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  const createNewDiary = () => history.push("/create-new-diary");
+
   return (
     <div>
-    <BookList />
+      <BookList />
       <div id={styles.logOut}>
-        <button class={styles.logOutBtn}>Log Out</button>
+        <button className={styles.logOutBtn} onClick={handleLogOut}>
+          Log Out
+        </button>
       </div>
       <div id={styles.mybutton}>
-        <button class={styles.createDiary}>Create New Diary</button>
+        <button className={styles.createDiary} onClick={createNewDiary}>
+          Create New Diary
+        </button>
       </div>
     </div>
   );
