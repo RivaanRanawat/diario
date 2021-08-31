@@ -15,6 +15,7 @@ function TextEditor() {
     ["image", "blockquote", "code-block"],
     ["clean"]
   ];
+  
   // using callback not use effect because of the error of innerhtml by ref created using useRef
   const ref = useCallback((wrapper) => {
     if (wrapper == null) return;
@@ -23,7 +24,7 @@ function TextEditor() {
     wrapper.append(editor);
     new Quill(editor, { theme: "snow", modules: { toolbar: toolbarOptions } });
   }, []);
-  return <div className="container" ref={ref}></div>;
+  return <div className="container-a" ref={ref}></div>;
 }
 
 export default TextEditor;

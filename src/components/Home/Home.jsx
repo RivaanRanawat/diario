@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext";
+import BookCard from "./BookCard/BookCard";
 import TextEditor from "./TextEditor/TextEditor";
 
 function Home() {
@@ -9,11 +10,9 @@ function Home() {
   useEffect(() => {
     if (!currentUser) {
       history.push("/signup");
-    } else {
-      console.log(currentUser.uid);
     }
   }, []);
-  return <TextEditor />;
+  return <BookCard />;
 }
 
 export default Home;
