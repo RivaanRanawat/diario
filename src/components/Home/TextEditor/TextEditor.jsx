@@ -1,9 +1,15 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import "./TextEditor.css";
+import { useParams } from "react-router";
+import { db } from "../../../services/firebase";
 
 function TextEditor() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const { slug } = useParams();
+
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ font: [] }],
@@ -28,21 +34,43 @@ function TextEditor() {
 
   // title section of entry
   useEffect(() => {
-    new Quill("#editor", {
-      modules: {
-        toolbar: null
-      },
-      theme: "snow",
+    async function fetchDiary() {
+      try {
+        setIsLoading(true);
+        const querySnapshot = await db
+          .collection("diaries")
+          .doc(slug)
+          .collection("entries")
+          .get();
+        querySnapshot.docs.forEach((querySnapshot) => {
+          setName(querySnapshot.data().name);
+        });
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+        alert(err.message);
+      }
+    }
+    
+    fetchDiary().then(() => {
+      new Quill("#editor", {
+        modules: {
+          toolbar: null,
+        },
+        theme: "snow",
+      });
     });
-  }, []);
+  }, [name]);
 
-  return (
+  return !isLoading ? (
     <div>
-      <div id="editor" style={{margin: "1rem", width: "8.5in",}}>
-        <h1>Entry Title</h1>
+      <div id="editor" style={{ margin: "1rem", width: "8.5in" }}>
+        <h1>{name != "" ? name : "Entry Title"}</h1>
       </div>
       <div className="container-a" ref={ref}></div>
     </div>
+  ) : (
+    <div>Loading...</div>
   );
 }
 

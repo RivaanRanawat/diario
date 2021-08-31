@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 function CreateNewDiary() {
   const [isLoading, setIsLoading] = useState(false);
   const [diaryName, setDiaryName] = useState("");
+  const [firstEntry, setFirstEntry] = useState("");
 
   const { currentUser } = useAuth();
   const history = useHistory();
@@ -17,15 +18,19 @@ function CreateNewDiary() {
     try {
       setIsLoading(true);
       const diaryId = uuidv4();
-      await db.collection("diaries").doc(currentUser.uid).set({
+      await db.collection("diaries").doc(diaryId).set({
         name: diaryName,
         createdAt: new Date(),
         isLocked: false,
         createdBy: currentUser.uid,
         diaryId,
       });
+      await db.collection("diaries").doc(diaryId).collection("entries").doc(firstEntry).set({
+          name: firstEntry,
+          createdAt: new Date()
+      })
       setIsLoading(false);
-      history.push(`/text-editor:${diaryId}`);
+      history.push(`/text-editor/${diaryId}`);
     } catch (err) {
       setIsLoading(false);
       alert(err.message);
@@ -45,6 +50,14 @@ function CreateNewDiary() {
               placeholder="Diary Name"
               required
               onChange={(e) => setDiaryName(e.target.value)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <input
+              type="text"
+              placeholder="First Entry Name"
+              required
+              onChange={(e) => setFirstEntry(e.target.value)}
             />
           </div>
           <button type="submit" className={styles.btn}>

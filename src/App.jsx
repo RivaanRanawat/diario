@@ -17,7 +17,7 @@ function App() {
           <Switch>
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/create-new-diary" component={CreateNewDiary} />
-            <PrivateRoute exact path="/text-editor:slug" component={TextEditor} />
+            <PrivateRoute exact path="/text-editor/:slug" component={TextEditor} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
