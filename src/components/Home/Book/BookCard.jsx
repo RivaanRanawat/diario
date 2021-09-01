@@ -6,8 +6,9 @@ function BookCard({ bookName, date, id }) {
   const history = useHistory();
   
   function handleBookClick() {
-    history.push(`/text-editor/${id}`);
+    history.push(`/chapters/${id}`);
   }
+  
   return (
     <div className={styles.book} onClick={handleBookClick}>
       <div className={styles.front}>

@@ -55,7 +55,7 @@ function CreateNewDiary() {
           <div className={styles.formGroup}>
             <input
               type="text"
-              placeholder="First Entry Name"
+              placeholder="First Chapter"
               required
               onChange={(e) => setFirstEntry(e.target.value)}
             />
