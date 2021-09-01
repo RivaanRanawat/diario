@@ -23,7 +23,7 @@ function BookList() {
         });
       } catch (err) {
         setIsLoading(false);
-        console.error(err.message)
+        console.error(err.message);
         alert(err.message); //
       }
     }
@@ -40,6 +40,7 @@ function BookList() {
           bookName={data.name}
           date={data.createdAt.toDate().toLocaleDateString()}
           id={data.diaryId}
+          constructorIsLocked={data.isLocked}
         />
       ))}
     </div>

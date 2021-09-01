@@ -70,11 +70,10 @@
 }
 
 .author {
-  font-family: acumin-pro, sans-serif;
   font-weight: 400;
   position: absolute;
-  top: 475px;
-  left: 50px;
+  top: 493px;
+  left: 45px;
   opacity: 0.8;
 }
 
