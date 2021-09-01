@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { db } from "../../services/firebase";
-import styles from "../ForgotPassword/ForgotPassword.module.css";
+import styles from "./CreateNew.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 function CreateNewDiary() {
@@ -30,7 +30,7 @@ function CreateNewDiary() {
           createdAt: new Date()
       })
       setIsLoading(false);
-      history.push(`/text-editor/${diaryId}`);
+      history.push(`/text-editor/${diaryId}/${firstEntry}`);
     } catch (err) {
       setIsLoading(false);
       alert(err.message);

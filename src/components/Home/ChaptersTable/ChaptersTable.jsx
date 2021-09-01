@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useHistory, useParams } from "react-router";
 import { db } from "../../../services/firebase";
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import styles from "../Home.module.css";
 
 function ChaptersTable() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,8 @@ function ChaptersTable() {
       minWidth: 650,
     },
   });
+
+  const createNewChapter = () => history.push(`/create-new-chapter/${slug}`);
 
   useEffect(() => {
     async function fetchChapters() {
@@ -44,7 +47,7 @@ function ChaptersTable() {
       console.log(data);
     });
   }, []);
-  
+
   const classes = useStyles();
 
   function handleChapterChange(rowName) {
@@ -52,26 +55,42 @@ function ChaptersTable() {
   }
 
   return !isLoading ? (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell><b>Chapter Name</b></TableCell>
-            <TableCell align="right"><b>Date</b></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.name} onClick={() => handleChapterChange(row.name)}>
-              <TableCell component="th" scope="row">
-                {row.name}
+    <div>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <b>Chapter Name</b>
               </TableCell>
-              <TableCell align="right">{row.createdAt.toDate().toLocaleDateString()}</TableCell>
+              <TableCell align="right">
+                <b>Date</b>
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow
+                key={row.name}
+                onClick={() => handleChapterChange(row.name)}
+              >
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">
+                  {row.createdAt.toDate().toLocaleDateString()}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <div id={styles.mybutton}>
+        <button className={styles.createDiary} onClick={createNewChapter}>
+          Create New Chapter
+        </button>
+      </div>
+    </div>
   ) : (
     <div>Loading..</div>
   );
