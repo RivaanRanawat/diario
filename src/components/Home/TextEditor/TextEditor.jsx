@@ -8,7 +8,9 @@ import { db } from "../../../services/firebase";
 function TextEditor() {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const { slug } = useParams();
+  const { diary, chapter } = useParams();
+  console.log(diary);
+  console.log(chapter);
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -39,19 +41,18 @@ function TextEditor() {
         setIsLoading(true);
         const querySnapshot = await db
           .collection("diaries")
-          .doc(slug)
+          .doc(diary)
           .collection("entries")
+          .doc(chapter)
           .get();
-        querySnapshot.docs.forEach((querySnapshot) => {
-          setName(querySnapshot.data().name);
-        });
+        setName(querySnapshot.data().name);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
         alert(err.message);
       }
     }
-    
+
     fetchDiary().then(() => {
       new Quill("#editor", {
         modules: {
