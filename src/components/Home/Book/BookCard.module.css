@@ -11,8 +11,8 @@
   height: 550px;
   margin: 20px;
   border-radius: 2px 4px 4px 2px;
-  background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
-  font-family: acumin-pro, sans-serif;
+  background: linear-gradient(45deg, #f3f3f3 0%, #fff 100%);
+  /* font-family: acumin-pro, sans-serif; */
   -webkit-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
   -moz-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
   box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
@@ -119,11 +119,11 @@
 }
 
 .cover {
-  background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
+  background-size: 400px 550px;
 }
 
 .leftSide h2 span:first-child {
-  font-family: acumin-pro, sans-serif;
+  /* font-family: acumin-pro, sans-serif; */
   padding-right: 20px;
 }
 

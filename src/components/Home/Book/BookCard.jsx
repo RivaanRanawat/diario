@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import styles from "./BookCard.module.css";
 import LockIcon from "@material-ui/icons/Lock";
 import { IconButton } from "@material-ui/core";
 import { db } from "../../../services/firebase";
 
-function BookCard({ bookName, date, id, constructorIsLocked }) {
+function BookCard({ bookName, date, id, constructorIsLocked, coverImage }) {
   const history = useHistory();
 
   async function handleBookClick() {
@@ -40,7 +40,7 @@ function BookCard({ bookName, date, id, constructorIsLocked }) {
   return (
     <div className={styles.book} onClick={handleBookClick}>
       <div className={styles.front}>
-        <div className={styles.cover}>
+        <div className={styles.cover} style={{backgroundSize: "400px 550px", backgroundImage: `url(${coverImage})`}}>
           <div className={styles.textName}>
             <h1
               style={{

@@ -28,3 +28,9 @@
   right: 10px;
   border: none;
 }
+
+#uploadPicButton {
+  position: fixed;
+  bottom: -4px;
+  right: 200px;
+}

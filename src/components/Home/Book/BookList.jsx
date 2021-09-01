@@ -41,6 +41,7 @@ function BookList() {
           date={data.createdAt.toDate().toLocaleDateString()}
           id={data.diaryId}
           constructorIsLocked={data.isLocked}
+          coverImage={!data.coverImage? "": data.coverImage}
         />
       ))}
     </div>
