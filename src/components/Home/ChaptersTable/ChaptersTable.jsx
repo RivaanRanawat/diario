@@ -33,6 +33,7 @@ function ChaptersTable() {
           .collection("diaries")
           .doc(slug)
           .collection("entries")
+          .orderBy("createdAt", "asc")
           .get();
         querySnapshot.docs.forEach((querySnapshot) => {
           setData((arr) => [...arr, querySnapshot.data()]);
@@ -61,20 +62,27 @@ function ChaptersTable() {
           <TableHead>
             <TableRow>
               <TableCell>
+                <b>Sr No.</b>
+              </TableCell>
+              <TableCell align="center">
                 <b>Chapter Name</b>
               </TableCell>
               <TableCell align="right">
-                <b>Date</b>
+                <b>Last Modified</b>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {data.map((row, i) => (
               <TableRow
                 key={row.name}
                 onClick={() => handleChapterChange(row.name)}
+                style={{ cursor: "pointer" }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell align="left">
+                {(i+1).toString()}
+                </TableCell>
+                <TableCell component="th" scope="row" align="center">
                   {row.name}
                 </TableCell>
                 <TableCell align="right">

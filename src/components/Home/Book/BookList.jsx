@@ -16,12 +16,14 @@ function BookList() {
         const querySnapshot = await db
           .collection("diaries")
           .where("createdBy", "==", currentUser.uid)
+          .orderBy("createdAt", "asc")
           .get();
         querySnapshot.forEach((snapshot) => {
           setInfo((arr) => [...arr, snapshot.data()]);
         });
       } catch (err) {
         setIsLoading(false);
+        console.error(err.message)
         alert(err.message); //
       }
     }

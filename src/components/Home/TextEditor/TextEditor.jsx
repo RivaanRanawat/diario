@@ -4,15 +4,27 @@ import "quill/dist/quill.snow.css";
 import "./TextEditor.css";
 import { useHistory, useParams } from "react-router";
 import { db } from "../../../services/firebase";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import SaveIcon from "@material-ui/icons/Save";
+
+// const useStyles = makeStyles((theme) => ({
+//   margin: {
+//     margin: theme.spacing(1),
+//   },
+// }));
 
 function TextEditor() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [name, setName] = useState("");
   const { diary, chapter } = useParams();
   const [quill, setQuill] = useState();
   const [titleQuill, setTitleQuill] = useState();
   const [paraContent, setParaContent] = useState();
   const history = useHistory();
+
+  // const classes = useStyles();
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -44,9 +56,9 @@ function TextEditor() {
 
   useEffect(() => {
     if (quill == null) return;
-      quill.setContents(paraContent)
-      quill.enable();
-  }, [quill])
+    quill.setContents(paraContent);
+    quill.enable();
+  }, [quill]);
 
   // title section of entry
   useEffect(() => {
@@ -93,31 +105,49 @@ function TextEditor() {
   async function handleSave() {
     console.log(titleQuill.getContents().ops[0]["insert"]);
     console.log(quill.getContents().ops);
-    if (quill.getContents().ops == null) return alert("Please start typing!");
-    // delete the previous titled document
-    await db
-      .collection("diaries")
-      .doc(diary)
-      .collection("entries")
-      .doc(chapter)
-      .delete();
-    // adding new chapter
-    await db
-      .collection("diaries")
-      .doc(diary)
-      .collection("entries")
-      .doc(titleQuill.getContents().ops[0]["insert"])
-      .set({
-        name: titleQuill.getContents().ops[0]["insert"],
-        content: quill.getContents().ops,
-        createdAt: new Date(),
-      });
-    history.push("/");
+    try {
+      setIsSaving(true);
+      if (quill.getContents().ops == null) return alert("Please start typing!");
+      // delete the previous titled document
+      await db
+        .collection("diaries")
+        .doc(diary)
+        .collection("entries")
+        .doc(chapter)
+        .delete();
+      // adding new chapter
+      await db
+        .collection("diaries")
+        .doc(diary)
+        .collection("entries")
+        .doc(titleQuill.getContents().ops[0]["insert"])
+        .set({
+          name: titleQuill.getContents().ops[0]["insert"],
+          content: quill.getContents().ops,
+          createdAt: new Date(),
+        });
+      setIsSaving(false);
+      history.push("/");
+    } catch (err) {
+      setIsSaving(false);
+      alert(err.message);
+    }
   }
 
   return !isLoading ? (
     <div>
-      <button onClick={handleSave}>hELLO</button>
+      <center>
+        <Button
+          onClick={handleSave}
+          style={{ marginTop: "10px" }}
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<SaveIcon />}
+        >
+          {isSaving? "Saving" : "Save"}
+        </Button>
+      </center>
       <div id="editor" style={{ margin: "1rem", width: "8.5in" }}>
         <h1>{name != "" ? name : "Entry Title"}</h1>
       </div>
