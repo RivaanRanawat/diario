@@ -12,6 +12,7 @@ import ChaptersTable from "./components/Home/ChaptersTable/ChaptersTable";
 import CreateNewChapter from "./components/CreateNew/CreateNewChapter";
 import CreateNewTodo from "./components/CreateNew/CreateNewTodo";
 import TodoList from "./components/TodoList/TodoList";
+import Error404NotFound from "./components/Error404NotFound/Error404NotFound";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/*" component={Error404NotFound} />
           </Switch>
         </AuthProvider>
       </Router>

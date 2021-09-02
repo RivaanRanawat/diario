@@ -5,6 +5,7 @@ import {
   CloudUpload,
   DeleteForever,
   List,
+  Mic,
   Palette,
   PaletteOutlined,
   Refresh,
@@ -109,7 +110,7 @@ function Sidebar({ slug }) {
         backgroundColor: paraColor,
       });
       setOpen(false);
-      alert("Color of your book has been changed!")
+      alert("Color of your book has been changed!");
     } catch (err) {
       alert(err.message);
     }
@@ -133,8 +134,14 @@ function Sidebar({ slug }) {
         <ul>
           <li onClick={createNewChapter}>
             <a>
-              <CreateIcon className="icons" />
+              <CreateIcon className={styles.icons} />
               <p>Create Chapter</p>
+            </a>
+          </li>
+          <li onClick={() => history.push(`/create-new-todo/${slug}`)}>
+            <a>
+              <List className={styles.icons} />
+              <p>Create To-Do</p>
             </a>
           </li>
           <li>
@@ -150,12 +157,12 @@ function Sidebar({ slug }) {
               <label htmlFor="raised-button-file">
                 {uploading ? (
                   <>
-                    <CircularProgress className="icons" />
+                    <CircularProgress className={styles.icons} />
                     <p>Uploading</p>
                   </>
                 ) : (
                   <>
-                    <CloudUpload className="icons" />
+                    <CloudUpload className={styles.icons} />
                     <p>Upload Cover</p>
                   </>
                 )}
@@ -164,26 +171,20 @@ function Sidebar({ slug }) {
           </li>
           <li onClick={deletePhoto}>
             <a>
-              <DeleteForever className="icons" />
+              <DeleteForever className={styles.icons} />
               <p>Delete Cover</p>
             </a>
           </li>
           <li onClick={handleOpen}>
             <a>
-              <Palette className="icons" />
+              <Palette className={styles.icons} />
               <p>Select Colour</p>
             </a>
           </li>
           <li onClick={() => saveBackgroundColor("")}>
             <a>
-              <Refresh className="icons" />
+              <Refresh className={styles.icons} />
               <p>Reset Colour</p>
-            </a>
-          </li>
-          <li onClick={() => history.push(`/create-new-todo/${slug}`)}>
-            <a>
-              <List className="icons" />
-              <p>Create To-Do</p>
             </a>
           </li>
         </ul>
