@@ -1,0 +1,68 @@
+.sidebar {
+  height: 100vh;
+  min-height: 500px;
+  width: 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow: hidden;
+  transition: width 0.2s;
+}
+.sidebar:hover {
+  width: 160px;
+  overflow: visible;
+}
+img.logo {
+  width: 50px;
+  padding: 0 4px;
+  margin: 30px 0;
+}
+nav {
+  height: 60vh;
+  min-height: 300px;
+}
+ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+li a {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  padding: 10px 0;
+  color: #000;
+}
+
+li a label {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  padding: 10px 0;
+  color: #000;
+}
+
+li a:hover {
+  background-image: linear-gradient(
+    to right,
+    #2a88e6 7px,
+    rgba(255, 255, 255, 0.1) 7px
+  );
+  color: linear-gradient(to right, #2a88e6 7px, rgba(255, 255, 255, 0.1) 7px);
+}
+.icons {
+  font-size: 20px;
+  text-align: right;
+}
+li p {
+  width: 75px;
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: 0.3px;
+}

@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import styles from "../Home.module.css";
 import { Button } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
+import Sidebar from "../Sidebar/Sidebar";
 
 function ChaptersTable() {
   const [isLoading, setIsLoading] = useState(false);
@@ -85,7 +86,7 @@ function ChaptersTable() {
               })
               .then(() => {
                 setUploading(false);
-                alert("Your Cover Page has been updated!")
+                alert("Your Cover Page has been updated!");
               })
               .catch((err) => {
                 setUploading(false);
@@ -98,6 +99,7 @@ function ChaptersTable() {
 
   return !isLoading ? (
     <div>
+      <Sidebar slug={slug} />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -132,38 +134,6 @@ function ChaptersTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <div id={styles.mybutton}>
-        <button className={styles.createDiary} onClick={createNewChapter}>
-          CREATE NEW CHAPTER
-        </button>
-      </div>
-      <form>
-        <div id={styles.uploadPicButton}>
-          <input
-            accept="image/*"
-            className={classes.input}
-            style={{ display: "none" }}
-            id="raised-button-file"
-            type="file"
-            accept="image/png, image/jpeg"
-            onInput={(e) => handleInput(e)}
-          />
-          <label htmlFor="raised-button-file">
-            <Button
-              variant="raised"
-              component="span"
-              startIcon={<CloudUpload />}
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                padding: "10px",
-              }}
-            >
-              {uploading ? "Uploading" : "Upload"}
-            </Button>
-          </label>
-        </div>
-      </form>
     </div>
   ) : (
     <div>Loading..</div>
