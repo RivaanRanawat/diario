@@ -11,7 +11,6 @@ function TodoList() {
   const [tasks, setTasks] = useState([]); // to store tasks
   const [isLoading, setIsLoading] = useState(false);
   const { diary, todoName } = useParams();
-  console.log(diary, todoName);
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,6 +34,7 @@ function TodoList() {
     }
     try {
       setTasks((arr) => [...arr, task]);
+      setTask("");
       await db
         .collection("diaries")
         .doc(diary)
@@ -43,10 +43,11 @@ function TodoList() {
         .update({
           tasks: firebase.firestore.FieldValue.arrayUnion(task),
         });
-      setTask("");
     } catch (err) {
       alert(err.message);
     }
+
+    console.log(tasks.length);
   }
 
   async function deleteItem(item) {
@@ -65,6 +66,7 @@ function TodoList() {
     } catch (err) {
       alert(err.message);
     }
+    console.log(tasks.length);
   }
 
   return !isLoading ? (
@@ -81,19 +83,21 @@ function TodoList() {
         </button>
       </div>
       <div id={styles.tasks}>
-        {tasks.map((taskPar) => (
-          <div className={styles.task}>
-            <span id={styles.taskname}>
-              {taskPar}
-            </span>
-            <button
-              className={styles.delete}
-              onClick={() => deleteItem(taskPar)}
-            >
-              <Delete />
-            </button>
-          </div>
-        ))}
+        {tasks.length !== 0 ? (
+          tasks.map((taskPar) => (
+            <div className={styles.task}>
+              <span id={styles.taskname}>{taskPar}</span>
+              <button
+                className={styles.delete}
+                onClick={() => deleteItem(taskPar)}
+              >
+                <Delete />
+              </button>
+            </div>
+          ))
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   ) : (

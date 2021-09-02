@@ -51,8 +51,12 @@ function ChaptersTable() {
 
   const classes = useStyles();
 
-  function handleChapterChange(rowName) {
-    history.push(`/text-editor/${slug}/${rowName}`);
+  function handleChapterChange(rowName, rowType) {
+    if(!rowType) {
+      history.push(`/text-editor/${slug}/${rowName}`);
+    } else {
+      history.push(`/todo-list/${slug}/${rowName}`);
+    }
   }
 
   return !isLoading ? (
@@ -65,8 +69,11 @@ function ChaptersTable() {
               <TableCell>
                 <b>Sr No.</b>
               </TableCell>
-              <TableCell align="center">
-                <b>Chapter Name</b>
+              <TableCell align="left">
+                <b>Name</b>
+              </TableCell>
+              <TableCell align="left">
+                <b>Type</b>
               </TableCell>
               <TableCell align="right">
                 <b>Last Modified</b>
@@ -77,12 +84,15 @@ function ChaptersTable() {
             {data.map((row, i) => (
               <TableRow
                 key={row.name}
-                onClick={() => handleChapterChange(row.name)}
+                onClick={() => handleChapterChange(row.name, row.type)}
                 style={{ cursor: "pointer" }}
               >
                 <TableCell align="left">{(i + 1).toString()}</TableCell>
-                <TableCell component="th" scope="row" align="center">
+                <TableCell component="th" scope="row" align="left">
                   {row.name}
+                </TableCell>
+                <TableCell component="th" scope="row" align="left">
+                  {!row.type? "Chapter": row.type}
                 </TableCell>
                 <TableCell align="right">
                   {row.createdAt.toDate().toLocaleDateString()}

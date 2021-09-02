@@ -24,6 +24,7 @@ function App() {
             <PrivateRoute exact path="/create-new-chapter/:slug" component={CreateNewChapter} />
             <PrivateRoute exact path="/create-new-todo/:slug" component={CreateNewTodo} />
             <PrivateRoute exact path="/todo-list/:diary/:todoName" component={TodoList} />
+            <PrivateRoute exact path="/text-editor/:diary/:chapter" component={TextEditor} />
             <PrivateRoute exact path="/chapters/:slug" component={ChaptersTable} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
