@@ -5,9 +5,15 @@ import LockIcon from "@material-ui/icons/Lock";
 import { IconButton } from "@material-ui/core";
 import { db } from "../../../services/firebase";
 
-function BookCard({ bookName, date, id, constructorIsLocked, coverImage }) {
+function BookCard({
+  bookName,
+  date,
+  id,
+  constructorIsLocked,
+  coverImage,
+  color,
+}) {
   const history = useHistory();
-
   async function handleBookClick() {
     const querySnapshot = await db.collection("diaries").doc(id).get();
     if (querySnapshot.data().isLocked) {
@@ -38,9 +44,21 @@ function BookCard({ bookName, date, id, constructorIsLocked, coverImage }) {
   }
 
   return (
-    <div className={styles.book} onClick={handleBookClick}>
+    <div
+      className={styles.book}
+      onClick={handleBookClick}
+      style={{
+        background: color,
+      }}
+    >
       <div className={styles.front}>
-        <div className={styles.cover} style={{backgroundSize: "400px 550px", backgroundImage: `url(${coverImage})`}}>
+        <div
+          className={styles.cover}
+          style={{
+            backgroundSize: "400px 550px",
+            backgroundImage: `url(${coverImage})`,
+          }}
+        >
           <div className={styles.textName}>
             <h1
               style={{
@@ -73,7 +91,15 @@ function BookCard({ bookName, date, id, constructorIsLocked, coverImage }) {
           </div>
         </div>
       </div>
-      <div className={styles.leftSide}>
+      <div
+        className={styles.leftSide}
+        style={{
+          background:
+            color == "linear-gradient(45deg, #f3f3f3 0%, #fff 100%)"
+              ? "rgba(232, 229, 234)"
+              : color,
+        }}
+      >
         <h2>
           <span>{bookName}</span>
           <span>{date}</span>

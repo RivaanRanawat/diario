@@ -1,15 +1,52 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 import CreateIcon from "@material-ui/icons/Create";
-import { CloudUpload, DeleteForever } from "@material-ui/icons";
+import {
+  CloudUpload,
+  DeleteForever,
+  Palette,
+  PaletteOutlined,
+  Refresh,
+} from "@material-ui/icons";
 import BookIcon from "@material-ui/icons/Book";
 import { useHistory } from "react-router";
 import { db, storage } from "../../../services/firebase";
-import { CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 function Sidebar({ slug }) {
   const [uploading, setUploading] = useState(false);
+  const [color, setColor] = useState("#ffffff");
   const history = useHistory();
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    console.log("open");
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log("close");
+    setOpen(false);
+  };
 
   const createNewChapter = () => history.push(`/create-new-chapter/${slug}`);
 
@@ -21,7 +58,7 @@ function Sidebar({ slug }) {
       await db.collection("diaries").doc(slug).update({
         coverImage: "",
       });
-      alert("Cover Image has been removed!")
+      alert("Cover Image has been removed!");
     } catch (err) {
       alert("You don't have a cover page!");
     }
@@ -65,6 +102,23 @@ function Sidebar({ slug }) {
     );
   }
 
+  async function saveBackgroundColor(paraColor) {
+    try {
+      await db.collection("diaries").doc(slug).update({
+        backgroundColor: paraColor,
+      });
+      setOpen(false);
+      alert("Color of your book has been changed!")
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  function handleColorChange() {
+    var color1 = document.querySelector(".leftColour");
+    setColor(color1.value);
+  }
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
@@ -79,7 +133,7 @@ function Sidebar({ slug }) {
           <li onClick={createNewChapter}>
             <a>
               <CreateIcon className="icons" />
-              <p>Create New Chapter</p>
+              <p>Create Chapter</p>
             </a>
           </li>
           <li>
@@ -101,7 +155,7 @@ function Sidebar({ slug }) {
                 ) : (
                   <>
                     <CloudUpload className="icons" />
-                    <p>Upload Cover Photo</p>
+                    <p>Upload Cover</p>
                   </>
                 )}
               </label>
@@ -110,7 +164,19 @@ function Sidebar({ slug }) {
           <li onClick={deletePhoto}>
             <a>
               <DeleteForever className="icons" />
-              <p>Delete Cover Photo</p>
+              <p>Delete Cover</p>
+            </a>
+          </li>
+          <li onClick={handleOpen}>
+            <a>
+              <Palette className="icons" />
+              <p>Select Colour</p>
+            </a>
+          </li>
+          <li onClick={() => saveBackgroundColor("")}>
+            <a>
+              <Refresh className="icons" />
+              <p>Reset Colour</p>
             </a>
           </li>
           <li>
@@ -121,6 +187,40 @@ function Sidebar({ slug }) {
           </li>
         </ul>
       </nav>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">Select Colour</h2>
+            <p id="transition-modal-description">
+              Select background colour for your diary!
+            </p>
+            <center>
+              <input
+                class="leftColour"
+                type="color"
+                name="color1"
+                value={color}
+                onInput={handleColorChange}
+              />
+            </center>
+            <Button color="primary" onClick={() => saveBackgroundColor(color)}>
+              Save
+            </Button>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }

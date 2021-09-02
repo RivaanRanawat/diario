@@ -36,15 +36,18 @@ function BookList() {
 
   return !isLoading && info !== [] ? (
     <div class={styles.container} style={{ display: "flex", flexWrap: "wrap" }}>
-      {info.map((data) => (
+      {info.map(function (data) {
+        console.log(data.backgroundColor);
+        return (
         <BookCard
           bookName={data.name}
           date={data.createdAt.toDate().toLocaleDateString()}
           id={data.diaryId}
           constructorIsLocked={data.isLocked}
           coverImage={!data.coverImage ? "" : data.coverImage}
+          color={!data.backgroundColor? "linear-gradient(45deg, #f3f3f3 0%, #fff 100%)": data.backgroundColor}
         />
-      ))}
+      )})}
     </div>
   ) : (
     <CircularProgress />

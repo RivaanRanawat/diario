@@ -11,7 +11,7 @@
   height: 550px;
   margin: 20px;
   border-radius: 2px 4px 4px 2px;
-  background: linear-gradient(45deg, #f3f3f3 0%, #fff 100%);
+  /* background: linear-gradient(45deg, #f3f3f3 0%, #fff 100%); */
   /* font-family: acumin-pro, sans-serif; */
   -webkit-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
   -moz-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
@@ -63,7 +63,7 @@
   width: 40px;
   left: -20px;
   height: 550px;
-  background-color: rgba(232, 229, 234);
+  /* background-color: rgba(232, 229, 234); */
   -webkit-transform: rotate3d(0, 1, 0, -90deg);
   -moz-transform: rotate3d(0, 1, 0, -90deg);
   transform: rotate3d(0, 1, 0, -90deg);
