@@ -4,6 +4,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import {
   CloudUpload,
   DeleteForever,
+  List,
   Palette,
   PaletteOutlined,
   Refresh,
@@ -179,10 +180,10 @@ function Sidebar({ slug }) {
               <p>Reset Colour</p>
             </a>
           </li>
-          <li>
+          <li onClick={() => history.push(`/create-new-todo/${slug}`)}>
             <a>
-              <BookIcon className="icons" />
-              <p>Read Diary</p>
+              <List className="icons" />
+              <p>Create To-Do</p>
             </a>
           </li>
         </ul>

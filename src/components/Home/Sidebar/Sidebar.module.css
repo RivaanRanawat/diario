@@ -36,6 +36,7 @@ li a {
   text-decoration: none;
   padding: 10px 0;
   color: #000;
+  cursor: pointer;
 }
 
 li a label {
@@ -46,6 +47,7 @@ li a label {
   text-decoration: none;
   padding: 10px 0;
   color: #000;
+  cursor: pointer;
 }
 
 li a:hover {

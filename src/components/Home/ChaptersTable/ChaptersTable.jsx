@@ -9,9 +9,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import styles from "../Home.module.css";
 import { Button, CircularProgress } from "@material-ui/core";
-import { CloudUpload } from "@material-ui/icons";
 import Sidebar from "../Sidebar/Sidebar";
 
 function ChaptersTable() {
