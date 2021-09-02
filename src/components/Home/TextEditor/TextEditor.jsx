@@ -7,6 +7,8 @@ import { db } from "../../../services/firebase";
 import { Button, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
+import Sidebar from "../Sidebar/Sidebar";
+import SectionsSidebar from "../Sidebar/SectionsSidebar";
 
 // const useStyles = makeStyles((theme) => ({
 //   margin: {
@@ -127,7 +129,7 @@ function TextEditor() {
           createdAt: new Date(),
         });
       setIsSaving(false);
-      history.push("/");
+      history.push(`/chapters/${diary}`);
     } catch (err) {
       setIsSaving(false);
       alert(err.message);
@@ -136,6 +138,7 @@ function TextEditor() {
 
   return !isLoading ? (
     <div>
+      <SectionsSidebar diary={diary} />
       <center>
         <Button
           onClick={handleSave}

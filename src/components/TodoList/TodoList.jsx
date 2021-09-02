@@ -5,6 +5,8 @@ import { db } from "../../services/firebase";
 import { Delete } from "@material-ui/icons";
 import { CircularProgress } from "@material-ui/core";
 import firebase from "firebase";
+import Sidebar from "../Home/Sidebar/Sidebar";
+import SectionsSidebar from "../Home/Sidebar/SectionsSidebar";
 
 function TodoList() {
   const [task, setTask] = useState(""); // to set the text input
@@ -29,10 +31,10 @@ function TodoList() {
   }, []);
 
   async function handleSubmit() {
-    if (task.trim() === "") {
-      return alert("Please Enter a Task");
-    }
     try {
+      if (task.trim() === "") {
+        return alert("Please Enter a Task");
+      }
       setTasks((arr) => [...arr, task]);
       setTask("");
       await db
@@ -70,34 +72,39 @@ function TodoList() {
   }
 
   return !isLoading ? (
-    <div class={styles.container}>
-      <div id={styles.newtask}>
-        <input
-          type="text"
-          placeholder="Task to be done.."
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-        />
-        <button id={styles.push} onClick={handleSubmit}>
-          Add
-        </button>
-      </div>
-      <div id={styles.tasks}>
-        {tasks.length !== 0 ? (
-          tasks.map((taskPar) => (
-            <div className={styles.task}>
-              <span id={styles.taskname}>{taskPar}</span>
-              <button
-                className={styles.delete}
-                onClick={() => deleteItem(taskPar)}
-              >
-                <Delete />
-              </button>
-            </div>
-          ))
-        ) : (
-          <div></div>
-        )}
+    <div>
+      <SectionsSidebar diary={diary} />
+      <div class={styles.container}>
+        <div id={styles.newtask}>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Task to be done.."
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+            />
+            <button id={styles.push} onClick={handleSubmit}>
+              Add
+            </button>
+          </form>
+        </div>
+        <div id={styles.tasks}>
+          {tasks.length !== 0 ? (
+            tasks.map((taskPar) => (
+              <div className={styles.task}>
+                <span id={styles.taskname}>{taskPar}</span>
+                <button
+                  className={styles.delete}
+                  onClick={() => deleteItem(taskPar)}
+                >
+                  <Delete />
+                </button>
+              </div>
+            ))
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     </div>
   ) : (
