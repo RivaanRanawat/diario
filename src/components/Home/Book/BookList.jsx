@@ -3,6 +3,7 @@ import BookCard from "./BookCard";
 import styles from "./BookCard.module.css";
 import { db } from "../../../services/firebase";
 import { useAuth } from "../../../context/AuthContext";
+import { CircularProgress } from "@material-ui/core";
 
 function BookList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,12 +42,12 @@ function BookList() {
           date={data.createdAt.toDate().toLocaleDateString()}
           id={data.diaryId}
           constructorIsLocked={data.isLocked}
-          coverImage={!data.coverImage? "": data.coverImage}
+          coverImage={!data.coverImage ? "" : data.coverImage}
         />
       ))}
     </div>
   ) : (
-    <div>Loading..</div>
+    <CircularProgress />
   );
 }
 

@@ -10,7 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import styles from "../Home.module.css";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
 import Sidebar from "../Sidebar/Sidebar";
 
@@ -26,8 +26,6 @@ function ChaptersTable() {
       minWidth: 650,
     },
   });
-
-  const createNewChapter = () => history.push(`/create-new-chapter/${slug}`);
 
   useEffect(() => {
     async function fetchChapters() {
@@ -57,44 +55,6 @@ function ChaptersTable() {
 
   function handleChapterChange(rowName) {
     history.push(`/text-editor/${slug}/${rowName}`);
-  }
-
-  function handleInput(e) {
-    const image = e.target.files[0];
-    if (image == null) return;
-    setUploading(true);
-    const uploadTask = storage.ref(`/cover-images/${slug}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      (snapShot) => {
-        console.log(snapShot);
-      },
-      (err) => {
-        setUploading(false);
-        alert(err.message);
-      },
-      () => {
-        storage
-          .ref("cover-images")
-          .child(slug)
-          .getDownloadURL()
-          .then((fireBaseUrl) => {
-            db.collection("diaries")
-              .doc(slug)
-              .update({
-                coverImage: fireBaseUrl,
-              })
-              .then(() => {
-                setUploading(false);
-                alert("Your Cover Page has been updated!");
-              })
-              .catch((err) => {
-                setUploading(false);
-                alert(err.message);
-              });
-          });
-      }
-    );
   }
 
   return !isLoading ? (
@@ -136,7 +96,7 @@ function ChaptersTable() {
       </TableContainer>
     </div>
   ) : (
-    <div>Loading..</div>
+    <CircularProgress />
   );
 }
 

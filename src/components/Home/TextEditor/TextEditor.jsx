@@ -4,7 +4,7 @@ import "quill/dist/quill.snow.css";
 import "./TextEditor.css";
 import { useHistory, useParams } from "react-router";
 import { db } from "../../../services/firebase";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
 
@@ -154,7 +154,7 @@ function TextEditor() {
       <div className="container-a" ref={ref}></div>
     </div>
   ) : (
-    <div>Loading...</div>
+    <CircularProgress />
   );
 }
 
