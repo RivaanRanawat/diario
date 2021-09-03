@@ -7,6 +7,7 @@ import { db } from "../../../services/firebase";
 import { Button, CircularProgress } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import SectionsSidebar from "../Sidebar/SectionsSidebar";
+import { useAuth } from "../../../context/AuthContext";
 
 function TextEditor() {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,7 @@ function TextEditor() {
   const [titleQuill, setTitleQuill] = useState();
   const [paraContent, setParaContent] = useState();
   const history = useHistory();
+  const { currentUser } = useAuth();
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -54,6 +56,40 @@ function TextEditor() {
 
   // title section of entry
   useEffect(() => {
+    db.collection("diaries")
+      .doc(diary)
+      .get()
+      .then((snap) => {
+        if (currentUser.uid === snap.data().createdBy) {
+          fetchDiary().then(() => {
+            const q = new Quill("#editor", {
+              modules: {
+                toolbar: null,
+                keyboard: {
+                  bindings: {
+                    tab: false,
+                    handleEnter: {
+                      key: 13,
+                      handler: function () {
+                        // Do nothing
+                      },
+                    },
+                  },
+                },
+              },
+              theme: "snow",
+            });
+            setTitleQuill(q);
+          });
+        } else {
+          alert("You have no such diary!");
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        alert("You have no such diary!");
+      });
+
     async function fetchDiary() {
       try {
         setIsLoading(true);
@@ -68,30 +104,10 @@ function TextEditor() {
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
-        alert(err.message);
+        alert("You have no such diary!");
+        history.push("/");
       }
     }
-
-    fetchDiary().then(() => {
-      const q = new Quill("#editor", {
-        modules: {
-          toolbar: null,
-          keyboard: {
-            bindings: {
-              tab: false,
-              handleEnter: {
-                key: 13,
-                handler: function () {
-                  // Do nothing
-                },
-              },
-            },
-          },
-        },
-        theme: "snow",
-      });
-      setTitleQuill(q);
-    });
   }, []);
 
   async function handleSave() {
@@ -136,7 +152,7 @@ function TextEditor() {
           size="large"
           startIcon={<SaveIcon />}
         >
-          {isSaving? "Saving" : "Save"}
+          {isSaving ? "Saving" : "Save"}
         </Button>
       </center>
       <div id="editor" style={{ margin: "1rem", width: "8.5in" }}>

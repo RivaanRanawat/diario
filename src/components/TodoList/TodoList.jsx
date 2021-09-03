@@ -1,30 +1,46 @@
 import styles from "./TodoList.module.css";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { db } from "../../services/firebase";
 import { Delete } from "@material-ui/icons";
 import { CircularProgress } from "@material-ui/core";
 import firebase from "firebase";
 import SectionsSidebar from "../Home/Sidebar/SectionsSidebar";
+import { useAuth } from "../../context/AuthContext";
 
 function TodoList() {
   const [task, setTask] = useState(""); // to set the text input
   const [tasks, setTasks] = useState([]); // to store tasks
   const [isLoading, setIsLoading] = useState(false);
   const { diary, todoName } = useParams();
+  const { currentUser } = useAuth();
+  const history = useHistory();
 
   useEffect(() => {
     setIsLoading(true);
     db.collection("diaries")
       .doc(diary)
-      .collection("entries")
-      .doc(todoName)
       .get()
-      .then((snapshot) => {
-        setTasks(snapshot.data().tasks);
+      .then((snap) => {
+        if (currentUser.uid === snap.data().createdBy) {
+          db.collection("diaries")
+            .doc(diary)
+            .collection("entries")
+            .doc(todoName)
+            .get()
+            .then((snapshot) => {
+              setTasks(snapshot.data().tasks);
+            })
+            .catch((err) => {
+              alert(err.message);
+            });
+        } else {
+          alert("You have no such diary!");
+          history.push("/");
+        }
       })
       .catch((err) => {
-        alert(err.message);
+        alert("You have no such diary!");
       });
     setIsLoading(false);
   }, [diary, todoName]);

@@ -12,12 +12,14 @@ import Paper from "@material-ui/core/Paper";
 import { CircularProgress } from "@material-ui/core";
 import Sidebar from "../Sidebar/Sidebar";
 import { Delete } from "@material-ui/icons";
+import {useAuth} from "../../../context/AuthContext";
 
 function ChaptersTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const { slug } = useParams();
   const history = useHistory();
+  const {currentUser} = useAuth();
 
   const useStyles = makeStyles({
     table: {
@@ -26,6 +28,12 @@ function ChaptersTable() {
   });
 
   useEffect(() => {
+    db.collection("diaries").doc(slug).get().then((snap) => {
+      if(currentUser.uid !== snap.data().createdBy) {
+        alert("You have no such diary!");
+        history.push("/");
+      }
+    });
     async function fetchChapters() {
       try {
         setIsLoading(true);
