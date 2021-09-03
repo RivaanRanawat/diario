@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
+import { useAuth } from "../../context/AuthContext";
 import { db } from "../../services/firebase";
 import styles from "./CreateNew.module.css";
 
@@ -8,6 +9,7 @@ function CreateNewStickyNotes() {
   const [stickyNotesTitle, setStickyNotesTitle] = useState("");
   const { slug } = useParams();
   const history = useHistory();
+  const {currentUser} = useAuth();
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -31,6 +33,20 @@ function CreateNewStickyNotes() {
       alert(err.message);
     }
   }
+
+  useEffect(() => {
+    db.collection("diaries")
+      .doc(slug)
+      .get()
+      .then((snap) => {
+        if (currentUser.uid !== snap.data().createdBy) {
+          alert("You have no such diary!");
+          history.push("/");
+        }
+      }).catch(err => {
+        alert("You have no such diary!")
+      });
+  }, []);
 
   return (
     <div className={styles.wrapper}>

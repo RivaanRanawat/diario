@@ -9,6 +9,8 @@ import { Button, CircularProgress, Input } from "@material-ui/core";
 import { db } from "../../../services/firebase";
 import firebase from "firebase";
 import { useAuth } from "../../../context/AuthContext";
+import Sidebar from "../Sidebar/Sidebar";
+import SectionsSidebar from "../Sidebar/SectionsSidebar";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -96,6 +98,8 @@ function StickyNotes() {
           alert("You have no such diary!");
           history.push("/");
         }
+      }).catch(err => {
+        alert("You have no such diary!")
       });
     db.collection("diaries")
       .doc(diary)
@@ -114,6 +118,7 @@ function StickyNotes() {
 
   return !isLoading ? (
     <>
+      <SectionsSidebar diary={diary} />
       <button className={styles.stickyButton} onClick={handleOpen}>
         Create Note
       </button>

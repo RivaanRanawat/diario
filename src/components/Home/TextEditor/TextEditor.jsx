@@ -56,6 +56,7 @@ function TextEditor() {
 
   // title section of entry
   useEffect(() => {
+    setIsLoading(true);
     db.collection("diaries")
       .doc(diary)
       .get()
@@ -89,6 +90,8 @@ function TextEditor() {
       .catch((err) => {
         alert("You have no such diary!");
       });
+
+    setIsLoading(false);
 
     async function fetchDiary() {
       try {

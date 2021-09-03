@@ -12,8 +12,11 @@ function SectionsSidebar({ diary }) {
     if(!typePar) {
         history.push(`/text-editor/${diary}/${name}`);
         window.location.reload();
-      } else {
+      } else if(typePar === "To-Do"){
         history.push(`/todo-list/${diary}/${name}`);
+        window.location.reload();
+      } else {
+        history.push(`/sticky-notes/${diary}/${name}`);
         window.location.reload();
       }
   }

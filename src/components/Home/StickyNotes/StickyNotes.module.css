@@ -72,6 +72,6 @@
   border-radius: 4px;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   font-size: 15px;
 }
