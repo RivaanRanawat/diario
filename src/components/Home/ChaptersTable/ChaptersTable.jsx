@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button, CircularProgress } from "@material-ui/core";
 import Sidebar from "../Sidebar/Sidebar";
+import { Delete } from "@material-ui/icons";
 
 function ChaptersTable() {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,10 +53,25 @@ function ChaptersTable() {
   const classes = useStyles();
 
   function handleChapterChange(rowName, rowType) {
-    if(!rowType) {
+    if (!rowType) {
       history.push(`/text-editor/${slug}/${rowName}`);
     } else {
       history.push(`/todo-list/${slug}/${rowName}`);
+    }
+  }
+
+  async function handleChapterDelete(rowName, index) {
+    try {
+      await db
+        .collection("diaries")
+        .doc(slug)
+        .collection("entries")
+        .doc(rowName)
+        .delete();
+      data.splice(index, 1);
+      setData((prevArr) => [...prevArr]);
+    } catch (err) {
+      alert(err.message);
     }
   }
 
@@ -72,30 +88,53 @@ function ChaptersTable() {
               <TableCell align="left">
                 <b>Name</b>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="center">
                 <b>Type</b>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <b>Last Modified</b>
+              </TableCell>
+              <TableCell align="center">
+                <b>Delete</b>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row, i) => (
-              <TableRow
-                key={row.name}
-                onClick={() => handleChapterChange(row.name, row.type)}
-                style={{ cursor: "pointer" }}
-              >
-                <TableCell align="left">{(i + 1).toString()}</TableCell>
-                <TableCell component="th" scope="row" align="left">
+              <TableRow key={row.name} style={{ cursor: "pointer" }}>
+                <TableCell
+                  align="left"
+                  onClick={() => handleChapterChange(row.name, row.type)}
+                >
+                  {(i + 1).toString()}
+                </TableCell>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="left"
+                  onClick={() => handleChapterChange(row.name, row.type)}
+                >
                   {row.name}
                 </TableCell>
-                <TableCell component="th" scope="row" align="left">
-                  {!row.type? "Chapter": row.type}
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="center"
+                  onClick={() => handleChapterChange(row.name, row.type)}
+                >
+                  {!row.type ? "Chapter" : row.type}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell
+                  align="center"
+                  onClick={() => handleChapterChange(row.name, row.type)}
+                >
                   {row.createdAt.toDate().toLocaleDateString()}
+                </TableCell>
+                <TableCell align="center">
+                  <Delete
+                    style={{ color: "red" }}
+                    onClick={() => handleChapterDelete(row.name, i)}
+                  />
                 </TableCell>
               </TableRow>
             ))}

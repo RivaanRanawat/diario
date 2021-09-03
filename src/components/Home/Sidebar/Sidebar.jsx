@@ -126,7 +126,7 @@ function Sidebar({ slug }) {
   async function removeDiary() {
     try {
       await db.collection("diaries").doc(slug).delete();
-      alert("Your Diary has been deleted!")
+      alert("Your Diary has been deleted!");
       history.push("/");
     } catch (err) {
       alert(err.message);
