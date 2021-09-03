@@ -31,25 +31,24 @@ function TodoList() {
   }, []);
 
   async function handleSubmit() {
-    try {
-      if (task.trim() === "") {
-        return alert("Please Enter a Task");
+    if (task.trim() === "") {
+      alert("Please Enter a Task");
+    } else {
+      try {
+        await db
+          .collection("diaries")
+          .doc(diary)
+          .collection("entries")
+          .doc(todoName)
+          .update({
+            tasks: firebase.firestore.FieldValue.arrayUnion(task),
+          });
+        setTasks((arr) => [...arr, task]);
+        setTask("");
+      } catch (err) {
+        alert(err.message);
       }
-      setTasks((arr) => [...arr, task]);
-      setTask("");
-      await db
-        .collection("diaries")
-        .doc(diary)
-        .collection("entries")
-        .doc(todoName)
-        .update({
-          tasks: firebase.firestore.FieldValue.arrayUnion(task),
-        });
-    } catch (err) {
-      alert(err.message);
     }
-
-    console.log(tasks.length);
   }
 
   async function deleteItem(item) {
@@ -76,17 +75,15 @@ function TodoList() {
       <SectionsSidebar diary={diary} />
       <div class={styles.container}>
         <div id={styles.newtask}>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Task to be done.."
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-            />
-            <button id={styles.push} onClick={handleSubmit}>
-              Add
-            </button>
-          </form>
+          <input
+            type="text"
+            placeholder="Task to be done.."
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+          <button id={styles.push} onClick={handleSubmit}>
+            Add
+          </button>
         </div>
         <div id={styles.tasks}>
           {tasks.length !== 0 ? (
