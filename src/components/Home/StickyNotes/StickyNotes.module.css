@@ -1,31 +1,77 @@
-h2 {
+@import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
+
+.stickyBoldText {
   font-weight: bold;
   font-size: 2rem;
 }
 
-p {
+.stickyText {
   font-size: 1rem;
   font-weight: normal;
+  font-family: "Reenie Beanie";
+  font-size: 2rem;
 }
 
-ul,
-li {
+.stickyNotes,
+.stickNote {
   list-style: none;
 }
-ul {
+.stickyNotes {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  flex-direction: row;
 }
-ul li a {
+.stickyNotes .stickNote a {
   text-decoration: none;
   color: #000;
   background: #ffc;
   display: block;
-  height: 10em;
-  width: 10em;
-  padding: 1em;
+  height: 15em;
+  width: 15em;
+  padding: 2em;
+  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  transition: transform 0.15s linear;
 }
-ul li {
-  margin: 1em;
+.stickyNotes .stickNote {
+  margin: 1.5em;
+  flex: 0 1 calc(20% - 1.5em);
+}
+
+.stickyNotes .stickNote:nth-child(even) a {
+  transform: rotate(4deg);
+  position: relative;
+  top: 5px;
+  background: #cfc;
+}
+.stickyNotes .stickNote:nth-child(3n) a {
+  transform: rotate(-3deg);
+  position: relative;
+  top: -5px;
+  background: #ccf;
+}
+.stickyNotes .stickNote:nth-child(5n) a {
+  transform: rotate(5deg);
+  position: relative;
+  top: -10px;
+}
+
+.stickyNotes .stickNote a:hover,
+.stickyNotes .stickNote a:focus {
+  box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+  transform: scale(1.25);
+  position: relative;
+  z-index: 5;
+}
+
+.stickyButton {
+  background-color: #fff;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 15px;
 }
