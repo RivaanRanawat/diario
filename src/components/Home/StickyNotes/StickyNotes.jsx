@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import styles from "./StickyNotes.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Button, Input } from "@material-ui/core";
+import { Button, CircularProgress, Input } from "@material-ui/core";
 import { db } from "../../../services/firebase";
 import firebase from "firebase";
+import { useAuth } from "../../../context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,10 +27,14 @@ const useStyles = makeStyles((theme) => ({
 function StickyNotes() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [titleInput, setTitleInput] = useState("");
   const [notes, setNotes] = useState([]);
   const [descriptionInput, setDescriptionInput] = useState("");
   const { diary, name } = useParams();
+  const { currentUser } = useAuth();
+
+  const history = useHistory();
 
   const handleOpen = () => {
     setOpen(true);
@@ -40,8 +45,6 @@ function StickyNotes() {
   };
 
   async function saveNote() {
-    console.log(titleInput);
-    console.log(descriptionInput);
     try {
       const data = {
         title: titleInput,
@@ -65,28 +68,61 @@ function StickyNotes() {
     }
   }
 
+  async function deleteNote(note) {
+    const index = notes.findIndex((notePar) => notePar === note);
+    try {
+      await db
+        .collection("diaries")
+        .doc(diary)
+        .collection("entries")
+        .doc(name)
+        .update({
+          names: firebase.firestore.FieldValue.arrayRemove(note),
+        });
+      notes.splice(index, 1);
+      setNotes((prevArr) => [...prevArr]);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   useEffect(() => {
+    setIsLoading(true);
+    db.collection("diaries")
+      .doc(diary)
+      .get()
+      .then((snap) => {
+        if (currentUser.uid !== snap.data().createdBy) {
+          alert("You have no such diary!");
+          history.push("/");
+        }
+      });
     db.collection("diaries")
       .doc(diary)
       .collection("entries")
       .doc(name)
       .get()
       .then((snap) => {
+        setIsLoading(false);
         setNotes(snap.data().names);
       })
       .catch((err) => {
+        setIsLoading(false);
         alert(err.message);
       });
   }, []);
 
-  return (
+  return !isLoading ? (
     <>
       <button className={styles.stickyButton} onClick={handleOpen}>
         Create Note
       </button>
       <ul className={styles.stickyNotes}>
         {notes.map((note) => (
-          <li className={styles.stickNote}>
+          <li
+            className={styles.stickNote}
+            onDoubleClick={() => deleteNote(note)}
+          >
             <a href="#">
               <h2 className={styles.stickyBoldText}>{note.title}</h2>
               <p className={styles.stickyText}>{note.description}</p>
@@ -128,7 +164,7 @@ function StickyNotes() {
               <Input
                 required
                 fullWidth
-                multiline
+                inputProps={{ maxLength: 25 }}
                 className={styles.stickyNoteTitleInput}
                 type="text"
                 value={descriptionInput}
@@ -144,6 +180,8 @@ function StickyNotes() {
         </Fade>
       </Modal>
     </>
+  ) : (
+    <CircularProgress />
   );
 }
 
