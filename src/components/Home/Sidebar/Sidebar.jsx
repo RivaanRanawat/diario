@@ -5,7 +5,10 @@ import {
   CloudUpload,
   Delete,
   DeleteForever,
+  LibraryBooks,
   List,
+  Notes,
+  NotesSharp,
   Palette,
   Refresh,
 } from "@material-ui/icons";
@@ -70,8 +73,7 @@ function Sidebar({ slug }) {
     const uploadTask = storage.ref(`/cover-images/${slug}`).put(image);
     uploadTask.on(
       "state_changed",
-      (snapShot) => {
-      },
+      (snapShot) => {},
       (err) => {
         setUploading(false);
         alert(err.message);
@@ -148,6 +150,12 @@ function Sidebar({ slug }) {
             <a>
               <List className={styles.icons} />
               <p>Create To-Do</p>
+            </a>
+          </li>
+          <li onClick={() => history.push(`/create-new-sticky-notes/${slug}`)}>
+            <a>
+              <LibraryBooks className={styles.icons} />
+              <p>Create Sticky Notes</p>
             </a>
           </li>
           <li>

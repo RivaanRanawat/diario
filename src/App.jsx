@@ -13,6 +13,8 @@ import CreateNewChapter from "./components/CreateNew/CreateNewChapter";
 import CreateNewTodo from "./components/CreateNew/CreateNewTodo";
 import TodoList from "./components/TodoList/TodoList";
 import Error404NotFound from "./components/Error404NotFound/Error404NotFound";
+import CreateNewStickyNotes from "./components/CreateNew/CreateNewStickyNotes";
+import StickyNotes from "./components/Home/StickyNotes/StickyNotes";
 
 function App() {
   return (
@@ -24,8 +26,10 @@ function App() {
             <PrivateRoute exact path="/create-new-diary" component={CreateNewDiary} />
             <PrivateRoute exact path="/create-new-chapter/:slug" component={CreateNewChapter} />
             <PrivateRoute exact path="/create-new-todo/:slug" component={CreateNewTodo} />
+            <PrivateRoute exact path="/create-new-sticky-notes/:slug" component={CreateNewStickyNotes} />
             <PrivateRoute exact path="/todo-list/:diary/:todoName" component={TodoList} />
             <PrivateRoute exact path="/text-editor/:diary/:chapter" component={TextEditor} />
+            <PrivateRoute exact path="/sticky-notes/:diary/:name" component={StickyNotes} />
             <PrivateRoute exact path="/chapters/:slug" component={ChaptersTable} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
