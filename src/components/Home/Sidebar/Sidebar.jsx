@@ -3,12 +3,14 @@ import styles from "./Sidebar.module.css";
 import CreateIcon from "@material-ui/icons/Create";
 import {
   CloudUpload,
+  Delete,
   DeleteForever,
   List,
   Mic,
   Palette,
   PaletteOutlined,
   Refresh,
+  Remove,
 } from "@material-ui/icons";
 import BookIcon from "@material-ui/icons/Book";
 import { useHistory } from "react-router";
@@ -121,6 +123,16 @@ function Sidebar({ slug }) {
     setColor(color1.value);
   }
 
+  async function removeDiary() {
+    try {
+      await db.collection("diaries").doc(slug).delete();
+      alert("Your Diary has been deleted!")
+      history.push("/");
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
@@ -185,6 +197,12 @@ function Sidebar({ slug }) {
             <a>
               <Refresh className={styles.icons} />
               <p>Reset Colour</p>
+            </a>
+          </li>
+          <li onClick={removeDiary}>
+            <a>
+              <Delete className={styles.icons} />
+              <p>Delete Diary</p>
             </a>
           </li>
         </ul>
