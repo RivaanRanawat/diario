@@ -77,7 +77,6 @@ function Signup() {
               id={styles.login}
               onClick={handleLoginChange}
               style={{ cursor: "pointer" }}
-              href=""
             >
               Login
             </a>

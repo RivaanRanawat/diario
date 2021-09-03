@@ -6,11 +6,8 @@ import {
   Delete,
   DeleteForever,
   List,
-  Mic,
   Palette,
-  PaletteOutlined,
   Refresh,
-  Remove,
 } from "@material-ui/icons";
 import BookIcon from "@material-ui/icons/Book";
 import { useHistory } from "react-router";
@@ -43,12 +40,10 @@ function Sidebar({ slug }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    console.log("open");
     setOpen(true);
   };
 
   const handleClose = () => {
-    console.log("close");
     setOpen(false);
   };
 
@@ -76,7 +71,6 @@ function Sidebar({ slug }) {
     uploadTask.on(
       "state_changed",
       (snapShot) => {
-        console.log(snapShot);
       },
       (err) => {
         setUploading(false);
@@ -228,7 +222,7 @@ function Sidebar({ slug }) {
             </p>
             <center>
               <input
-                class="leftColour"
+                className="leftColour"
                 type="color"
                 name="color1"
                 value={color}

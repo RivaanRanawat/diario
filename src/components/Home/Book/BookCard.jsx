@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import styles from "./BookCard.module.css";
 import LockIcon from "@material-ui/icons/Lock";
@@ -95,7 +95,7 @@ function BookCard({
         className={styles.leftSide}
         style={{
           background:
-            color == "linear-gradient(45deg, #f3f3f3 0%, #fff 100%)"
+            color === "linear-gradient(45deg, #f3f3f3 0%, #fff 100%)"
               ? "rgba(232, 229, 234)"
               : color,
         }}

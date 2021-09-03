@@ -5,16 +5,8 @@ import "./TextEditor.css";
 import { useHistory, useParams } from "react-router";
 import { db } from "../../../services/firebase";
 import { Button, CircularProgress } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import Sidebar from "../Sidebar/Sidebar";
 import SectionsSidebar from "../Sidebar/SectionsSidebar";
-
-// const useStyles = makeStyles((theme) => ({
-//   margin: {
-//     margin: theme.spacing(1),
-//   },
-// }));
 
 function TextEditor() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +17,6 @@ function TextEditor() {
   const [titleQuill, setTitleQuill] = useState();
   const [paraContent, setParaContent] = useState();
   const history = useHistory();
-
-  // const classes = useStyles();
 
   const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -105,8 +95,6 @@ function TextEditor() {
   }, []);
 
   async function handleSave() {
-    console.log(titleQuill.getContents().ops[0]["insert"]);
-    console.log(quill.getContents().ops);
     try {
       setIsSaving(true);
       if (quill.getContents().ops == null) return alert("Please start typing!");

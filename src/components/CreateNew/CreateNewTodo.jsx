@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router";
-import { useAuth } from "../../context/AuthContext";
 import { db } from "../../services/firebase";
 import styles from "./CreateNew.module.css";
 

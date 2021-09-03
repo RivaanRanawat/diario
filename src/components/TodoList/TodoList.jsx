@@ -5,7 +5,6 @@ import { db } from "../../services/firebase";
 import { Delete } from "@material-ui/icons";
 import { CircularProgress } from "@material-ui/core";
 import firebase from "firebase";
-import Sidebar from "../Home/Sidebar/Sidebar";
 import SectionsSidebar from "../Home/Sidebar/SectionsSidebar";
 
 function TodoList() {
@@ -28,7 +27,7 @@ function TodoList() {
         alert(err.message);
       });
     setIsLoading(false);
-  }, []);
+  }, [diary, todoName]);
 
   async function handleSubmit() {
     if (task.trim() === "") {
@@ -52,7 +51,7 @@ function TodoList() {
   }
 
   async function deleteItem(item) {
-    const index = tasks.findIndex((taskPar) => taskPar == item);
+    const index = tasks.findIndex((taskPar) => taskPar === item);
     try {
       tasks.splice(index, 1);
       setTasks((prevArr) => [...prevArr]);
@@ -67,13 +66,12 @@ function TodoList() {
     } catch (err) {
       alert(err.message);
     }
-    console.log(tasks.length);
   }
 
   return !isLoading ? (
     <div>
       <SectionsSidebar diary={diary} />
-      <div class={styles.container}>
+      <div className={styles.container}>
         <div id={styles.newtask}>
           <input
             type="text"
@@ -87,8 +85,8 @@ function TodoList() {
         </div>
         <div id={styles.tasks}>
           {tasks.length !== 0 ? (
-            tasks.map((taskPar) => (
-              <div className={styles.task}>
+            tasks.map((taskPar, index) => (
+              <div className={styles.task} key={index}>
                 <span id={styles.taskname}>{taskPar}</span>
                 <button
                   className={styles.delete}

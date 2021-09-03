@@ -30,17 +30,19 @@ function BookList() {
     }
     fetchUserDiaries().then(() => {
       setIsLoading(false);
-      console.log(info); //
     });
   }, []);
 
   return !isLoading && info !== [] ? (
-    <div class={styles.container} style={{ display: "flex", flexWrap: "wrap" }}>
+    <div
+      className={styles.container}
+      style={{ display: "flex", flexWrap: "wrap" }}
+    >
       {info.length > 0 ? (
-        info.map(function (data) {
-          console.log(data.backgroundColor);
+        info.map(function (data, index) {
           return (
             <BookCard
+              key={index}
               bookName={data.name}
               date={data.createdAt.toDate().toLocaleDateString()}
               id={data.diaryId}
@@ -99,7 +101,9 @@ function BookList() {
             <circle cx="433.63626" cy="105.17383" r="20" fill="#3525d3" />
             <circle cx="433.63626" cy="105.17383" r="12.18187" fill="#fff" />
           </svg>
-          <center><h1 style={{marginTop: "20px"}}>Start By Creating Diaries!</h1></center>
+          <center>
+            <h1 style={{ marginTop: "20px" }}>Start By Creating Diaries!</h1>
+          </center>
         </div>
       )}
     </div>

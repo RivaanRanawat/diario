@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
-import { db, storage } from "../../../services/firebase";
+import { db } from "../../../services/firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,14 +9,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Sidebar from "../Sidebar/Sidebar";
 import { Delete } from "@material-ui/icons";
 
 function ChaptersTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [uploading, setUploading] = useState(false);
   const { slug } = useParams();
   const history = useHistory();
 
@@ -46,7 +45,6 @@ function ChaptersTable() {
     }
     fetchChapters().then(() => {
       setIsLoading(false);
-      console.log(data);
     });
   }, []);
 

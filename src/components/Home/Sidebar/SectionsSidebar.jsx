@@ -29,6 +29,8 @@ function SectionsSidebar({ diary }) {
           setTitle((prevArr) => [...prevArr, querySnapshot.data().name]);
           setType((prev) => [...prev, querySnapshot.data().type]);
         });
+      }).catch((err) => {
+          alert(err.message);
       });
   }, []);
 
@@ -44,7 +46,7 @@ function SectionsSidebar({ diary }) {
       <nav>
         <ul>
           {title.map((t, index) => (
-            <li onClick={() => createNewChapter(type[index],t)}>
+            <li onClick={() => createNewChapter(type[index],t)} key={index}>
               <a>
                 <h1 className={styles.icons}>{index + 1}</h1>
                 <p>{t}</p>
