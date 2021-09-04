@@ -97,24 +97,26 @@ function StickyNotes() {
         if (currentUser.uid !== snap.data().createdBy) {
           alert("You have no such diary!");
           history.push("/");
+        } else {
+          db.collection("diaries")
+            .doc(diary)
+            .collection("entries")
+            .doc(name)
+            .get()
+            .then((snap) => {
+              setNotes(snap.data().notes);
+            })
+            .catch((err) => {
+              alert(err.message);
+            });
         }
-      }).catch(err => {
-        alert("You have no such diary!")
-      });
-    db.collection("diaries")
-      .doc(diary)
-      .collection("entries")
-      .doc(name)
-      .get()
-      .then((snap) => {
-        setIsLoading(false);
-        setNotes(snap.data().names);
       })
       .catch((err) => {
-        setIsLoading(false);
-        alert(err.message);
+        alert("You have no such diary!");
       });
-  }, []);
+
+    setIsLoading(false);
+  }, [diary, name]);
 
   return !isLoading ? (
     <>
