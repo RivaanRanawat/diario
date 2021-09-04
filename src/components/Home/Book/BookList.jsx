@@ -35,7 +35,7 @@ function BookList() {
 
   return !isLoading && info !== [] ? (
     <div
-      className={styles.container}
+      className={styles.bookContainer}
       style={{ display: "flex", flexWrap: "wrap" }}
     >
       {info.length > 0 ? (

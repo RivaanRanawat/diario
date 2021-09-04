@@ -1,4 +1,4 @@
-.container {
+.todoContainer {
   width: 40%;
   min-width: 450px;
   position: absolute;
@@ -7,14 +7,14 @@
   left: 50%;
   padding: 30px 40px;
 }
-#newtask {
+.newTodoTask {
   position: relative;
   background-color: #ffffff;
   padding: 30px 20px;
   border-radius: 5px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
-#newtask input {
+.newTodoTask input {
   width: 70%;
   width: 70%;
   height: 45px;
@@ -26,12 +26,12 @@
   position: relative;
   border-radius: 5px;
 }
-#newtask input:focus {
+.newTodoTask input:focus {
   outline: none;
   border-color: #3525D3;
 }
 
-#newtask button {
+.newTodoTask .addButton {
   position: relative;
   float: right;
   width: 20%;
@@ -45,7 +45,7 @@
   cursor: pointer;
   outline: none;
 }
-#tasks {
+.todoTasks {
   background-color: #ffffff;
   padding: 30px 20px;
   margin-top: 60px;
@@ -54,7 +54,7 @@
   width: 100%;
   position: relative;
 }
-.task {
+.todoTask {
   background-color: #ffffff;
   height: 50px;
   padding: 5px 10px;
@@ -65,11 +65,11 @@
   border-bottom: 2px solid #d1d3d4;
   cursor: pointer;
 }
-.task span {
+.todoTask .todoTaskName {
   font-size: 15px;
   font-weight: 400;
 }
-.task button {
+.todoTask .deleteIcon {
   background-color: #3525D3;
   color: #ffffff;
   height: 100%;

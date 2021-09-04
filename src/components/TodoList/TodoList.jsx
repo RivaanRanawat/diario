@@ -87,25 +87,25 @@ function TodoList() {
   return !isLoading ? (
     <div>
       <SectionsSidebar diary={diary} />
-      <div className={styles.container}>
-        <div id={styles.newtask}>
+      <div className={styles.todoContainer}>
+        <div className={styles.newTodoTask}>
           <input
             type="text"
             placeholder="Task to be done.."
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
-          <button id={styles.push} onClick={handleSubmit}>
+          <button className={styles.addButton} onClick={handleSubmit}>
             Add
           </button>
         </div>
-        <div id={styles.tasks}>
+        <div className={styles.todoTasks}>
           {tasks.length !== 0 ? (
             tasks.map((taskPar, index) => (
-              <div className={styles.task} key={index}>
-                <span id={styles.taskname}>{taskPar}</span>
+              <div className={styles.todoTask} key={index}>
+                <span className={styles.todoTaskName}>{taskPar}</span>
                 <button
-                  className={styles.delete}
+                  className={styles.deleteIcon}
                   onClick={() => deleteItem(taskPar)}
                 >
                   <Delete />

@@ -1,18 +1,16 @@
-.container {
+.bookContainer {
   z-index: 1;
   perspective: 3000px;
   width: 100%;
 }
 
-.container .book {
+.bookContainer .bookCard {
   position: relative;
   display: block;
   width: 400px;
   height: 550px;
   margin: 20px;
   border-radius: 2px 4px 4px 2px;
-  /* background: linear-gradient(45deg, #f3f3f3 0%, #fff 100%); */
-  /* font-family: acumin-pro, sans-serif; */
   -webkit-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
   -moz-box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
   box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
@@ -26,19 +24,19 @@
   transition: transform 0.5s;
 }
 
-.container .book:hover {
+.bookContainer .bookCard:hover {
   -webkit-transform: rotate3d(0, 1, 0, 35deg);
   -moz-transform: rotate3d(0, 1, 0, 35deg);
   transform: rotate3d(0, 1, 0, 35deg);
 }
 
-.container .book > div,
-.container .front > div {
+.bookContainer .bookCard > div,
+.bookContainer .bookCardFront > div {
   display: block;
   position: absolute;
 }
 
-.container .front {
+.bookContainer .bookCardFront {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -54,22 +52,21 @@
   z-index: 10;
 }
 
-.container .front > div {
+.bookContainer .bookCardFront > div {
   width: 400px;
   height: 550px;
 }
 
-.container .leftSide {
+.bookContainer .bookCardLeftSide {
   width: 40px;
   left: -20px;
   height: 550px;
-  /* background-color: rgba(232, 229, 234); */
   -webkit-transform: rotate3d(0, 1, 0, -90deg);
   -moz-transform: rotate3d(0, 1, 0, -90deg);
   transform: rotate3d(0, 1, 0, -90deg);
 }
 
-.author {
+.bookDate {
   font-weight: 400;
   position: absolute;
   top: 493px;
@@ -77,12 +74,12 @@
   opacity: 0.8;
 }
 
-.container .front > div {
+.bookContainer .bookCardFront > div {
   border-radius: 0 3px 3px 0;
   box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.container .front:after {
+.bookContainer .bookCardFront:after {
   content: "";
   position: absolute;
   top: 1px;
@@ -91,7 +88,7 @@
   width: 1px;
 }
 
-.container .cover:after {
+.bookContainer .bookCardCover:after {
   content: "";
   position: absolute;
   top: 0;
@@ -102,7 +99,7 @@
   box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
 }
 
-.container h2 {
+.bookContainer h2 {
   width: 500px;
   height: 40px;
   color: #2b2b2b;
@@ -118,28 +115,27 @@
   transform: rotate(90deg) translateY(-40px);
 }
 
-.cover {
+.bookCardCover {
   background-size: 400px 550px;
 }
 
-.leftSide h2 span:first-child {
-  /* font-family: acumin-pro, sans-serif; */
+.bookCardLeftSide h2 span:first-child {
   padding-right: 20px;
 }
 
-.leftSide h2 span:last-child {
+.bookCardLeftSide h2 span:last-child {
   font-weight: 400;
   font-size: 13px;
 }
 
-.textName {
+.bookTitle {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 @media only screen and (max-width: 880px) {
-  .container .book {
+  .bookContainer .bookCard {
     margin: 5% auto;
   }
 }

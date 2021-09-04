@@ -45,21 +45,21 @@ function BookCard({
 
   return (
     <div
-      className={styles.book}
+      className={styles.bookCard}
       onClick={handleBookClick}
       style={{
         background: color,
       }}
     >
-      <div className={styles.front}>
+      <div className={styles.bookCardFront}>
         <div
-          className={styles.cover}
+          className={styles.bookCardCover}
           style={{
             backgroundSize: "400px 550px",
             backgroundImage: `url(${coverImage})`,
           }}
         >
-          <div className={styles.textName}>
+          <div className={styles.bookTitle}>
             <h1
               style={{
                 fontSize: 40,
@@ -71,7 +71,7 @@ function BookCard({
             </h1>
           </div>
           <div>
-            <p className={styles.author}>{date}</p>
+            <p className={styles.bookDate}>{date}</p>
             {!constructorIsLocked ? (
               <IconButton
                 color="primary"
@@ -92,7 +92,7 @@ function BookCard({
         </div>
       </div>
       <div
-        className={styles.leftSide}
+        className={styles.bookCardLeftSide}
         style={{
           background:
             color === "linear-gradient(45deg, #f3f3f3 0%, #fff 100%)"
