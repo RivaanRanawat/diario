@@ -59,7 +59,7 @@ function StickyNotes() {
         .collection("entries")
         .doc(name)
         .update({
-          names: firebase.firestore.FieldValue.arrayUnion(data),
+          notes: firebase.firestore.FieldValue.arrayUnion(data),
         });
       setNotes((prevArr) => [...prevArr, data]);
       setTitleInput("");
@@ -79,7 +79,7 @@ function StickyNotes() {
         .collection("entries")
         .doc(name)
         .update({
-          names: firebase.firestore.FieldValue.arrayRemove(note),
+          notes: firebase.firestore.FieldValue.arrayRemove(note),
         });
       notes.splice(index, 1);
       setNotes((prevArr) => [...prevArr]);
@@ -97,26 +97,24 @@ function StickyNotes() {
         if (currentUser.uid !== snap.data().createdBy) {
           alert("You have no such diary!");
           history.push("/");
-        } else {
-          db.collection("diaries")
-            .doc(diary)
-            .collection("entries")
-            .doc(name)
-            .get()
-            .then((snap) => {
-              setNotes(snap.data().notes);
-            })
-            .catch((err) => {
-              alert(err.message);
-            });
         }
+      }).catch(err => {
+        alert("You have no such diary!")
+      });
+    db.collection("diaries")
+      .doc(diary)
+      .collection("entries")
+      .doc(name)
+      .get()
+      .then((snap) => {
+        setIsLoading(false);
+        setNotes(snap.data().notes);
       })
       .catch((err) => {
-        alert("You have no such diary!");
+        setIsLoading(false);
+        alert(err.message);
       });
-
-    setIsLoading(false);
-  }, [diary, name]);
+  }, []);
 
   return !isLoading ? (
     <>
