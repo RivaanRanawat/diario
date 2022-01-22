@@ -16,6 +16,16 @@ body {
   background-color: white;
 }
 
+@media only screen and (max-width: 869px) {
+  .container-a .ql-editor {
+    width: 15rem;
+    min-height: 6in;
+    /* margin: 1rem; */
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    background-color: white;
+  }
+}
+
 .container-a .ql-container.ql-snow {
   border: none;
   display: flex;

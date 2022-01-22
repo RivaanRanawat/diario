@@ -142,10 +142,11 @@ function TextEditor() {
       alert(err.message);
     }
   }
+  console.log(window.innerWidth * 0.0056);
 
   return !isLoading ? (
     <div>
-      <SectionsSidebar diary={diary} />
+      {window.innerWidth > 979 ? <SectionsSidebar diary={diary} /> : <></>}
       <center>
         <Button
           onClick={handleSave}
@@ -158,7 +159,14 @@ function TextEditor() {
           {isSaving ? "Saving" : "Save"}
         </Button>
       </center>
-      <div id="editor" style={{ margin: "1rem", width: "8.5in" }}>
+      <div
+        id="editor"
+        style={{
+          margin: "1rem",
+          marginLeft: window.innerWidth > 600 ? "8.5in" : "2in",
+          width: window.innerWidth > 600 ? "8.5in" : "2in",
+        }}
+      >
         <h1>{name != "" ? name : "Entry Title"}</h1>
       </div>
       <div className="container-a" ref={ref}></div>

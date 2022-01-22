@@ -20,10 +20,11 @@ function ChaptersTable() {
   const { slug } = useParams();
   const history = useHistory();
   const { currentUser } = useAuth();
+  console.log(window.innerWidth);
 
   const useStyles = makeStyles({
     table: {
-      minWidth: 650,
+      minWidth: window.innerWidth > 600 ? 600 : 0,
     },
   });
 
@@ -87,7 +88,12 @@ function ChaptersTable() {
   }
 
   return !isLoading ? (
-    <div>
+    <div style={{ display: "flex" }}>
+      {window.innerWidth > 600 ? (
+        <></>
+      ) : (
+        <div style={{ paddingLeft: "3.5rem" }}></div>
+      )}
       <Sidebar slug={slug} />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
