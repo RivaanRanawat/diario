@@ -18,7 +18,7 @@ body {
 
 @media only screen and (max-width: 869px) {
   .container-a .ql-editor {
-    width: 15rem;
+    width: 85%;
     min-height: 6in;
     /* margin: 1rem; */
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);

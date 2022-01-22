@@ -163,8 +163,8 @@ function TextEditor() {
         id="editor"
         style={{
           margin: "1rem",
-          marginLeft: window.innerWidth > 600 ? "8.5in" : "2in",
-          width: window.innerWidth > 600 ? "8.5in" : "2in",
+          marginLeft: window.innerWidth > 600 ? "8.5in" : "15%",
+          width: window.innerWidth > 600 ? "8.5in" : "4in",
         }}
       >
         <h1>{name != "" ? name : "Entry Title"}</h1>
